@@ -1,0 +1,52 @@
+schema_version: 1
+id: dh-http-status
+name: HTTP Status
+version: 0.1.0
+api_version: 1
+description: Observe explicitly configured HTTP health endpoints without mutation.
+adapters: []
+status_provider_types:
+  - http-health
+actions: []
+permissions:
+  mutation: false
+  credential_slots:
+    - http.authorization
+  egress_bindings:
+    - endpoints.*.base_url
+config_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required:
+    - endpoints
+  properties:
+    endpoints:
+      type: object
+      propertyNames:
+        pattern: ^[a-z][a-z0-9_-]{0,63}$
+      additionalProperties:
+        type: object
+        additionalProperties: false
+        required:
+          - base_url
+        properties:
+          base_url:
+            type: string
+            format: uri
+          health_path:
+            type: string
+            default: /
+          authorization_file:
+            type: string
+          verify_tls:
+            type: boolean
+            default: true
+          timeout_seconds:
+            type: number
+            exclusiveMinimum: 0
+            maximum: 30
+          stale_after_seconds:
+            type: integer
+            minimum: 1
+            maximum: 3600
