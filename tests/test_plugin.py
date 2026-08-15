@@ -82,7 +82,7 @@ def test_core_discovers_and_loads_installed_plugin() -> None:
         ),
         PluginLock(
             plugins=[
-                PluginLockEntry(id="dh-core", version="0.3.0", source="builtin"),
+                PluginLockEntry(id="dh-core", version="0.4.0", source="builtin"),
                 PluginLockEntry(id="dh-http-status", version="0.1.0", source="python"),
             ]
         ),
